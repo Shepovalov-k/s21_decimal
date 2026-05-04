@@ -1,0 +1,6 @@
+*.o
+*.a
+*.gcda
+*.gcno
+src/test
+src/gcov_report
