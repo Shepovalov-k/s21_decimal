@@ -1,0 +1,34 @@
+#include "test_increase_scale_big.h"
+
+#include <check.h>
+
+Suite *increase_scale_big_suite(void) {
+  Suite *s = suite_create("\033[1;34ms21_increase_scale_big\033[0m");
+  TCase *tc = tcase_create("Core");
+
+  tcase_add_test(tc, test_increase_scale_basic);
+  tcase_add_test(tc, test_increase_scale_max);
+  tcase_add_test(tc, test_increase_scale_large_number);
+  tcase_add_test(tc, test_increase_scale_overflow);
+  tcase_add_test(tc, test_increase_scale_zero);
+  tcase_add_test(tc, test_increase_scale_with_carry);
+  // tcase_add_test(tc, test_increase_scale_null_ptr);
+
+  suite_add_tcase(s, tc);
+  return s;
+}
+
+#ifdef STANDALONE_INCREASE_SCALE_BIG
+int main(void) {
+  SRunner *sr = srunner_create(NULL);
+  int number_failed = 0;
+
+  srunner_add_suite(sr, increase_scale_big_suite());
+
+  srunner_run_all(sr, CK_VERBOSE);
+  number_failed = srunner_ntests_failed(sr);
+  srunner_free(sr);
+
+  return (number_failed == 0) ? 0 : 1;
+}
+#endif

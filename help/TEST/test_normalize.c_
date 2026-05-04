@@ -1,0 +1,34 @@
+#include "test_normalize.h"
+
+#include <check.h>
+
+Suite *normalize_suite(void) {
+  Suite *s = suite_create("\033[1;34ms21_normalize\033[0m");
+  TCase *tc = tcase_create("Core");
+
+  tcase_add_test(tc, test_normalize_equal_scales);
+  tcase_add_test(tc, test_normalize_a_smaller_scale);
+  tcase_add_test(tc, test_normalize_b_smaller_scale);
+  tcase_add_test(tc, test_normalize_max_scale);
+  tcase_add_test(tc, test_normalize_zero_a);
+  tcase_add_test(tc, test_normalize_zero_b);
+  // tcase_add_test(tc, test_normalize_null_pointers);
+
+  suite_add_tcase(s, tc);
+  return s;
+}
+
+#ifdef STANDALONE_NORMALIZE
+int main(void) {
+  SRunner *sr = srunner_create(NULL);
+  int number_failed = 0;
+
+  srunner_add_suite(sr, normalize_suite());
+
+  srunner_run_all(sr, CK_VERBOSE);
+  number_failed = srunner_ntests_failed(sr);
+  srunner_free(sr);
+
+  return (number_failed == 0) ? 0 : 1;
+}
+#endif

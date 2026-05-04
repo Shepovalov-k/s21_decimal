@@ -1,0 +1,3 @@
+#include "help.h"
+
+int s21_get_scale(s21_decimal d) { return (d.bits[3] >> 16) & 0xFF; }
